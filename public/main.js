@@ -11,26 +11,23 @@ var http = require('http');
 var pg = require('pg');
 
 pg.defaults.ssl = true;
+pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
 
-function getData(response){
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-      if (err) throw err;
-      console.log('Connected to postgres! Getting schemas...');
-      client
-        .query('SELECT firstname,lastname FROM salesforce.contact;')
-        .on('row', function(row) {
-          response.write(JSON.stringify(row));
-        });
+  client
+    .query('SELECT firstname,lastname FROM salesforce.contact WHERE firstname = \'Andy\';')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
     });
-}
+});
 
 http.createServer(onRequest).listen(process.env.PORT || 3000);
 
 function onRequest(request, response){
     console.log('the request from user',request.url);
     response.writeHead(200);
-    response.write('following is the data from server contact objet');
-    getData(response);
+    response.write('this is a test message');
     response.end();
 }
 
