@@ -7,7 +7,7 @@ console.log('started node app');
 
 var http = require('http');
 
-http.createServer(onRequest).listen(8888);
+http.createServer(onRequest).listen(process.env.PORT || 3000);
 
 function onRequest(request, response){
     console.log('the request from user',request.url);
