@@ -4,9 +4,11 @@
     "keywords": ["util", "functional", "server", "client", "browser"],
     "author": "mramachandra",
     "contributors": [],
-    "dependencies": {},
+    "dependencies": {
+        "ejs": "*"
+    },
     "scripts": {
-        "start": "node main.js"
+        "start": "node public\/main.js"
     }
 
 }
